@@ -31,9 +31,9 @@
 #define Kps 0.5*Rs*J/Ld;
 #define Kis 0.25*Rs*Rs*J/(Ld*Ld);
 #define MaxCurrent 10.00 //in amps
-#define MinCurrent -2.00// in amps
-#define MaxSpeed 2500 //in rpm
-#define MinSpeed -2500//in rpm
+#define MinCurrent -10.00// in amps
+#define MaxVq 300 //in rpm
+#define MinVq -300//in rpm
 
 
 __interrupt void cpuTimer0ISR(void);
@@ -65,9 +65,10 @@ float calculateSpeed()
     return speedRPM;
 }
 
-PIDController pid_current;
+PIDController pid_current_q;
 PIDController pid_speed;
 float32_t iqref=0.0;
+float32_t vq =0.0;
 
 
 void main(void)
@@ -109,24 +110,24 @@ void main(void)
 
 
 
-        pid_current.Kd = 0.0;
-        pid_current.Ki = Kic;
-        pid_current.Kp = Kpc;
-        pid_current.limMax = MaxCurrent;
-        pid_current.limMin = MinCurrent;
-        pid_current.limMaxInt = MaxCurrent/2.00;
-        pid_current.limMinInt = MinCurrent/2.00;
-        PIDController_Init(&pid_current);
+        pid_current_q.Kd = 0.0;
+        pid_current_q.Ki = Kic;
+        pid_current_q.Kp = Kpc;
+        pid_current_q.limMax = MaxVq;
+        pid_current_q.limMin = MinVq;
+        pid_current_q.limMaxInt = MaxVq/2.00;
+        pid_current_q.limMinInt = MinVq/2.00;
+        PIDController_Init(&pid_current_q);
 
 
 
         pid_speed.Kd = 0.0;
         pid_speed.Ki = Kis;
         pid_speed.Kp = Kps;
-        pid_speed.limMax = MaxSpeed;
-        pid_speed.limMin = MinSpeed;
-        pid_speed.limMaxInt = MaxSpeed/2.00;
-        pid_speed.limMinInt = MinSpeed/2.00;
+        pid_speed.limMax = MaxCurrent;
+        pid_speed.limMin = MinCurrent;
+        pid_speed.limMaxInt = MaxCurrent/2.00;
+        pid_speed.limMinInt = MinCurrent/2.00;
         PIDController_Init(&pid_speed);
 
 
@@ -153,8 +154,9 @@ __interrupt void
 
 
             PIDController_Update(&pid_speed, 500, speed_motor);
-                iqref = pid_speed.output;
-
+            iqref = pid_speed.output;
+            PIDController_Update(&pid_current_q, iqref, 12.00);
+            vq = pid_current_q.output;
      //
      // Acknowledge this interrupt to receive more interrupts from group 1
      //
