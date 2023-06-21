@@ -2,7 +2,7 @@
 
 encoder.obj: ../encoder.c
 encoder.obj: ../encoder.h
-encoder.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/driverlib.h
+encoder.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/driverlib.h
 encoder.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/EQEP.h
 encoder.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/stdbool.h
 encoder.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/_ti_config.h
@@ -87,13 +87,13 @@ encoder.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/upp.h
 encoder.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/inc/hw_upp.h
 encoder.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/version.h
 encoder.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h
-encoder.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h
+encoder.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
 
 ../encoder.c:
 
 ../encoder.h:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/driverlib.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/driverlib.h:
 
 C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/EQEP.h:
 
@@ -263,5 +263,5 @@ C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/version.h:
 
 C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
 

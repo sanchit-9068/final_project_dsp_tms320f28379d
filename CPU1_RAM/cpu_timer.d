@@ -2,7 +2,7 @@
 
 cpu_timer.obj: ../cpu_timer.c
 cpu_timer.obj: ../cpu_timer.h
-cpu_timer.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/driverlib.h
+cpu_timer.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/driverlib.h
 cpu_timer.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/EQEP.h
 cpu_timer.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/stdbool.h
 cpu_timer.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/_ti_config.h
@@ -87,15 +87,15 @@ cpu_timer.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/upp.
 cpu_timer.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/inc/hw_upp.h
 cpu_timer.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/version.h
 cpu_timer.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h
-cpu_timer.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h
+cpu_timer.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
 cpu_timer.obj: ../sci_init.h
-cpu_timer.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h
+cpu_timer.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
 
 ../cpu_timer.c:
 
 ../cpu_timer.h:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/driverlib.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/driverlib.h:
 
 C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/EQEP.h:
 
@@ -265,9 +265,9 @@ C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/version.h:
 
 C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
 
 ../sci_init.h:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
 

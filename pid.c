@@ -47,12 +47,12 @@ float PIDController_Update(PIDController *pid, float setpoint, float measurement
 
 
     // differentiator term calculation
-    pid->differentiator=-(2.0f * pid->Kd * (measurement - pid->prevMeasurement) /* Note: derivative on measurement, therefore minus sign in front of equation! */
-            + (2.0f * pid->tau - pid->T) * pid->differentiator)
-            / (2.0f * pid->tau + pid->T);
+//    pid->differentiator=-(2.0f * pid->Kd * (measurement - pid->prevMeasurement) /* Note: derivative on measurement, therefore minus sign in front of equation! */
+//            + (2.0f * pid->tau - pid->T) * pid->differentiator)
+//            / (2.0f * pid->tau + pid->T);
 
     // final output= proportional + integrator + derivative;
-    pid->output= proportional+(pid->integrator)+(pid->differentiator);
+    pid->output= proportional+(pid->integrator);//+(pid->differentiator);
 
 
     // pid final output limits.

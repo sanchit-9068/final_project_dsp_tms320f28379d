@@ -17,23 +17,26 @@ void
      // Initialize timer period to maximum
      //
      CPUTimer_setPeriod(CPUTIMER0_BASE, 0xFFFFFFFF);
-
+     CPUTimer_setPeriod(CPUTIMER1_BASE, 0xFFFFFFFF);
 
      //
      // Initialize pre-scale counter to divide by 1 (SYSCLKOUT)
      //
      CPUTimer_setPreScaler(CPUTIMER0_BASE, 0);
+     CPUTimer_setPreScaler(CPUTIMER1_BASE, 0);
 
      //
      // Make sure timer is stopped
      //
      CPUTimer_stopTimer(CPUTIMER0_BASE);
+     CPUTimer_stopTimer(CPUTIMER1_BASE);
 
 
      //
      // Reload all counter register with period value
      //
      CPUTimer_reloadTimerCounter(CPUTIMER0_BASE);
+     CPUTimer_reloadTimerCounter(CPUTIMER1_BASE);
 
 
      //

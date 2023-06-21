@@ -1,8 +1,8 @@
 # FIXED
 
 empty_driverlib_main.obj: ../empty_driverlib_main.c
-empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/encoder.h
-empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/driverlib.h
+empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/encoder.h
+empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/driverlib.h
 empty_driverlib_main.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/EQEP.h
 empty_driverlib_main.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/stdbool.h
 empty_driverlib_main.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/_ti_config.h
@@ -87,18 +87,28 @@ empty_driverlib_main.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/dri
 empty_driverlib_main.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/inc/hw_upp.h
 empty_driverlib_main.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/version.h
 empty_driverlib_main.obj: C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h
-empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h
-empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h
+empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
+empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
 empty_driverlib_main.obj: ../sci_init.h
-empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h
+empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
 empty_driverlib_main.obj: ../cpu_timer.h
-empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h
+empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
+empty_driverlib_main.obj: ../clark.h
+empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
+empty_driverlib_main.obj: C:/ti/c2000/C2000Ware_4_03_00_00/libraries/math/IQmath/c28/include/IQmathLib.h
+empty_driverlib_main.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/limits.h
+empty_driverlib_main.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/math.h
+empty_driverlib_main.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/_defs.h
+empty_driverlib_main.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/machine/_limits.h
+empty_driverlib_main.obj: ../park.h
+empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
+empty_driverlib_main.obj: ../pid.h
 
 ../empty_driverlib_main.c:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/encoder.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/encoder.h:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/driverlib.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/driverlib.h:
 
 C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/EQEP.h:
 
@@ -268,15 +278,35 @@ C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/version.h:
 
 C:/ti/c2000/C2000Ware_4_03_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
 
 ../sci_init.h:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
 
 ../cpu_timer.h:
 
-C:/Users/Sanchit\ Awasthi/workspace_2/empty_driverlib_project/device/device.h:
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
+
+../clark.h:
+
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
+
+C:/ti/c2000/C2000Ware_4_03_00_00/libraries/math/IQmath/c28/include/IQmathLib.h:
+
+C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/limits.h:
+
+C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/math.h:
+
+C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/_defs.h:
+
+C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/machine/_limits.h:
+
+../park.h:
+
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
+
+../pid.h:
 
