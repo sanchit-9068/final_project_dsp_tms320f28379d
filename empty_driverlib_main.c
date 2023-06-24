@@ -173,24 +173,18 @@ void main(void)
         pid_speed.limMinInt = MinCurrent/2.00;
         PIDController_Init(&pid_speed);
 
+        variable_def(0.5f, 0.5f);
+        Ta = ta_pwm2();
+        Tb = tb_pwm2();
+        Tc = tc_pwm2();
 
-        Ta = ta_pwm(0.5f, 0.5f);
-        Tb = tb_pwm(0.5f, 0.5f);
-        Tc = tc_pwm(0.5f, 0.5f);
-//        seca = ta_pwm2(0.5, 0.5);
-//   /     secb = tb_pwm2(0.5, 0.5);
-//        secc = tc_pwm2(0.5, 0.5);
-//        motor->PwmARegs->CMPA.bit.CMPA = (INV_PWM_HALF_TBPRD*motor->svgen.Ta)+INV_PWM_HALF_TBPRD;
-        duty_a = Ta*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
-        duty_b = Tb*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
-        duty_c = Tc*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
+//        duty_a = Ta*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
+//        duty_b = Tb*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
+//        duty_c = Tc*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
 
-//        EPWM_setCounterCompareValue(myEPWM1_BASE, EPWM_COUNTER_COMPARE_A, (int16_t)duty_a);
-//        EPWM_setCounterCompareValue(myEPWM1_BASE, EPWM_COUNTER_COMPARE_B, (int16_t)duty_a);
-//        EPWM_setCounterCompareValue(myEPWM2_BASE, EPWM_COUNTER_COMPARE_A, (int16_t)duty_b);
-//        EPWM_setCounterCompareValue(myEPWM2_BASE, EPWM_COUNTER_COMPARE_B, (int16_t)duty_b);
-//        EPWM_setCounterCompareValue(myEPWM3_BASE, EPWM_COUNTER_COMPARE_A, (int16_t)duty_c);
-//        EPWM_setCounterCompareValue(myEPWM3_BASE, EPWM_COUNTER_COMPARE_B, (int16_t)duty_c);
+        duty_a = Ta * 5000;
+        duty_b = Tb * 5000;
+        duty_c = Tc * 5000;
         duty_change(duty_a, duty_b, duty_c);
 
 

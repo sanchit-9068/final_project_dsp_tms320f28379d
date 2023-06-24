@@ -138,11 +138,12 @@ float32_t tb_pwm(float32_t ualpha, float32_t ubeta);
 
 float32_t tc_pwm(float32_t ualpha, float32_t ubeta);
 
-float32_t ta_pwm2(float32_t ualpha, float32_t ubeta);
+float32_t ta_pwm2();
 
-float32_t tb_pwm2(float32_t ualpha, float32_t ubeta);
+float32_t tb_pwm2();
 
-float32_t tc_pwm2(float32_t ualpha, float32_t ubeta);
+float32_t tc_pwm2();
 
+void variable_def(float32_t ualpha, float32_t ubeta);
 
 #endif /* PWM_H_ */

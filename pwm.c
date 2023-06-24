@@ -38,6 +38,88 @@ void Board_init()
 
     EDIS;
 }
+uint16_t sector_vector = 3;
+   float32_t u2;
+   float32_t x,y,z,t1,t2,t7;float32_t result1,result2,result3;
+void variable_def(float32_t ualpha, float32_t ubeta)
+{
+    u2 = 0.866f * ualpha;
+    if ( ubeta >=0 && ubeta <(u2))
+                sector_vector = 1;
+            else if (((u2) > 0 && ubeta > (u2))||(u2 < 0 && (ubeta > (-1.00f*u2))))
+                sector_vector = 2;
+            else if( ubeta > 0 && (-1.00f*u2)>=ubeta)
+                sector_vector = 3;
+            else if( ubeta <=0 && u2 < ubeta)
+                sector_vector = 4;
+            else if ( ubeta < 0 && (-1.00f*u2) <= ubeta)
+                sector_vector = 6;
+            else
+                sector_vector = 5;
+
+
+            x = ubeta;
+            y = u2 + 0.5*ubeta;
+            z = -1.00f*u2 + 0.5f*ubeta;
+
+            if (sector_vector == 1)
+            {
+                t1 = -1.00f*z;
+                t2 = x;
+                t7 = (1-t1-t2)/2.00f;
+                result1 = t1 + t2 + t7;
+                result2 = t2+t7;
+                result3 = t7;
+            }
+            else if (sector_vector == 2)
+            {
+                t1 = z;
+                t2 = y;
+                t7 = (1-t1-t2)/2.00f;
+                result1 = t1 + t7;
+                result2 = t1 + t2 + t7;
+                result3 = t7;
+
+            }
+            else if (sector_vector == 3)
+            {
+                t1 = x;
+                t2 = y;
+                t7 = (1-t1-t2)/2.00f;
+                result1 = t7;
+                result2 = t1 + t2 + t7;
+                result3 = t2 + t7;
+
+            }
+            else if (sector_vector == 4)
+            {
+                t1 = -1.00f*x;
+                t2 = z;
+                t7 = (1-t1-t2)/2.00f;
+                result1 = t7;
+                result2 = t1 + t7;
+                result3 = t1 + t2 + t7;
+            }
+            else if (sector_vector == 5)
+            {
+                t1 = -1.00f*y;
+                t2 = -1.00f*z;
+                t7 = (1-t1-t2)/2.00f;
+                result1 = t2 + t7;
+                result2 = t7;
+                result3 = t1 + t2 + t7;
+            }
+            else
+            {
+                t1 = y;
+                t2 = -1.00f*x;
+                t7 = (1-t1-t2)/2.00f;
+                result1 = t1 + t2 + t7;
+                result2 = t7;
+                result3 = t1 + t7;
+
+            }
+}
 
 //*****************************************************************************
 //
@@ -186,71 +268,42 @@ void SYNC_init(){
 }
 
 
-float32_t ta_pwm( float32_t ualpha, float32_t ubeta)
+float32_t ta_pwm2( )
 {
-    float32_t tmp1,tmp2,tmp3;
-    tmp1 = ubeta;
-    tmp2 = 0.5*ubeta + 0.866*ualpha;
-    tmp3 = tmp2 - tmp1;
-    uint16_t sector_vector = 3;
-    sector_vector = (tmp2 > 0)? (sector_vector - 1): (sector_vector);
-    sector_vector = (tmp3 > 0)? (sector_vector - 1): (sector_vector);
-    sector_vector = (tmp1 < 0)? (7 - sector_vector): (sector_vector);
 
-    if ( sector_vector == 1 || sector_vector == 4)
-        return tmp2;
-    else if (sector_vector == 2 || sector_vector == 5)
-        return (tmp3+tmp2);
-    else
-        return tmp3;
+
+
+
+
+          return result1;
 
 
 }
 
 
-float32_t tb_pwm( float32_t ualpha, float32_t ubeta)
+float32_t tb_pwm2()
 {
-    float32_t tmp1,tmp2,tmp3;
-    tmp1 = ubeta;
-    tmp2 = 0.5*ubeta + 0.866*ualpha;
-    tmp3 = tmp2 - tmp1;
-    uint16_t sector_vector = 3;
-    sector_vector = (tmp2 > 0)? (sector_vector - 1): (sector_vector);
-    sector_vector = (tmp3 > 0)? (sector_vector - 1): (sector_vector);
-    sector_vector = (tmp1 < 0)? (7 - sector_vector): (sector_vector);
 
-    if ( sector_vector == 1 || sector_vector == 4)
-        return (tmp1-tmp3);
-    else if (sector_vector == 2 || sector_vector == 5)
-        return (tmp1);
-    else
-        return tmp3;
+
+       return result2;
+
 
 
 }
 
 
 
-float32_t tc_pwm( float32_t ualpha, float32_t ubeta)
+float32_t tc_pwm2( )
 {
-    float32_t tmp1,tmp2,tmp3;
-    tmp1 = ubeta;
-    tmp2 = 0.5*ubeta + 0.866*ualpha;
-    tmp3 = tmp2 - tmp1;
-    uint16_t sector_vector = 3;
-    sector_vector = (tmp2 > 0)? (sector_vector - 1): (sector_vector);
-    sector_vector = (tmp3 > 0)? (sector_vector - 1): (sector_vector);
-    sector_vector = (tmp1 < 0)? (7 - sector_vector): (sector_vector);
 
-    if ( sector_vector == 1 || sector_vector == 4)
-        return (-tmp2);
-    else if (sector_vector == 2 || sector_vector == 5)
-        return (-tmp1);
-    else
-        return -(tmp1+tmp2);
+
+
+             return result3;
+
 
 
 }
+
 
 
 void initEPWM1()
