@@ -23,7 +23,7 @@ float32_t inverse_park_beta(float32_t id, float32_t iq, float32_t theta)
     float32_t cos_theta=cos(theta);
     float32_t sin_theta=sin(theta);
 
-    float32_t result = (sin_theta*id)-(iq*cos_theta);
+    float32_t result = (sin_theta*id)+(iq*cos_theta);
     return result;
 }
 

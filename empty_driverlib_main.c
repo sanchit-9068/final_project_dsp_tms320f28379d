@@ -50,7 +50,7 @@ uint16_t cpuTimer0IntCount;
 int32_t prev_pos=0;
 
 float32_t ialpha,ibeta,id,iq;
-float32_t ia=1.00,ib=2.00;
+float32_t ia=2.00,ib=4.00;
 int tester=0;
 float32_t speed_motor;
 
@@ -91,7 +91,7 @@ float32_t vd=0.0;
 float32_t id_measured=0.0;
 float32_t iq_measured=0.0;
 float32_t Ta,Tb,Tc;
-
+float32_t ialpha_inverse,ibeta_inverse;
 uint16_t seca,secb,secc;
 
 void main(void)
@@ -194,6 +194,8 @@ void main(void)
             ibeta=clark_beta(ia, ib);
             id= park_id(ialpha, ibeta, M_PI/3.00);
             iq= park_iq(ialpha, ibeta, M_PI/3.00);
+            ialpha_inverse = inverse_park_alpha(id, iq, M_PI/3.00);
+            ibeta_inverse = inverse_park_beta(id, iq, M_PI/3.00);
 
         }
 

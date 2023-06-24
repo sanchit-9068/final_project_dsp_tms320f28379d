@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v22.6.0                     
 ******************************************************************************
->> Linked Sun Jun 25 01:49:33 2023
+>> Linked Sun Jun 25 03:26:37 2023
 
 OUTPUT FILE NAME:   <final_project.out>
 ENTRY POINT SYMBOL: "code_start"  address: 00000000
@@ -15,8 +15,8 @@ PAGE 0:
   BEGIN                 00000000   00000002  00000002  00000000  RWIX
   RAMM0                 00000123   000002dd  00000067  00000276  RWIX
   RAMLS0                00008000   00000800  00000800  00000000  RWIX
-  RAMLS1                00008800   00000800  000007fd  00000003  RWIX
-  RAMLS2                00009000   00000800  00000579  00000287  RWIX
+  RAMLS1                00008800   00000800  00000800  00000000  RWIX
+  RAMLS2                00009000   00000800  000005d6  0000022a  RWIX
   RAMLS3                00009800   00000800  00000000  00000800  RWIX
   RAMLS4                0000a000   00000800  00000000  00000800  RWIX
   RAMD0                 0000b000   00000800  00000800  00000000  RWIX
@@ -132,14 +132,11 @@ PUTREADIDX
 
 .text.1    0    00008000    00000800     
                   00008000    000003fc     device.obj (.text)
-                  000083fc    0000023c     empty_driverlib_main.obj (.text)
-                  00008638    0000019a     sci_init.obj (.text)
-                  000087d2    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
-                  000087fb    00000002     driverlib_coff.lib : interrupt.obj (.text:_Interrupt_nmiHandler)
-                  000087fd    00000002     rts2800_fpu32.lib : pre_init.c.obj (.text)
-                  000087ff    00000001                       : startup.c.obj (.text)
+                  000083fc    00000258     empty_driverlib_main.obj (.text)
+                  00008654    0000019a     sci_init.obj (.text)
+                  000087ee    00000012     driverlib_coff.lib : sysctl.obj (.text:_CPUTimer_clearOverflowFlag)
 
-.text.2    0    00008800    000007fd     
+.text.2    0    00008800    00000800     
                   00008800    00000206     driverlib_coff.lib : sysctl.obj (.text:_SysCtl_setClock)
                   00008a06    000000d6     empty_driverlib_main.obj (.text:retain)
                   00008adc    000000d5     cpu_timer.obj (.text)
@@ -152,52 +149,56 @@ PUTREADIDX
                   00008f03    00000063                       : s_cosf.c.obj (.text)
                   00008f66    00000056                       : boot28.asm.obj (.text)
                   00008fbc    00000041     driverlib_coff.lib : sci.obj (.text:_SCI_writeCharArray)
+                  00008ffd    00000002                        : interrupt.obj (.text:_Interrupt_nmiHandler)
+                  00008fff    00000001     rts2800_fpu32.lib : startup.c.obj (.text)
 
-.text.3    0    00009000    00000579     
+.text.3    0    00009000    000005d6     
                   00009000    00000052     driverlib_coff.lib : gpio.obj (.text:_GPIO_setPadConfig)
                   00009052    00000051                        : sysctl.obj (.text:_SysCtl_getClock)
                   000090a3    0000004a     park.obj (.text)
                   000090ed    00000048     driverlib_coff.lib : sysctl.obj (.text:_SysCtl_selectOscSource)
-                  00009135    00000045                        : sci.obj (.text:_SCI_clearInterruptStatus)
-                  0000917a    0000003e                        : sci.obj (.text:_SCI_setConfig)
-                  000091b8    0000003d                        : interrupt.obj (.text:_Interrupt_initModule)
-                  000091f5    00000037                        : gpio.obj (.text:_GPIO_setControllerCore)
-                  0000922c    00000037                        : gpio.obj (.text:_GPIO_setPinConfig)
-                  00009263    00000037                        : gpio.obj (.text:_GPIO_setQualificationMode)
-                  0000929a    00000037                        : interrupt.obj (.text:_Interrupt_enable)
-                  000092d1    00000024     rts2800_fpu32.lib : cpy_tbl.c.obj (.text)
-                  000092f5    00000021     driverlib_coff.lib : sysctl.obj (.text:_CPUTimer_selectClockSource)
-                  00009316    00000020                        : sci.obj (.text:_SCI_isFIFOEnabled)
-                  00009336    0000001f                        : sysctl.obj (.text:_CPUTimer_getTimerOverflowStatus)
-                  00009355    0000001e                        : interrupt.obj (.text:_Interrupt_initVectorTable)
-                  00009373    0000001d     rts2800_fpu32.lib : memcpy.c.obj (.text)
-                  00009390    0000001c     clark.obj (.text)
-                  000093ac    0000001b     driverlib_coff.lib : sci.obj (.text:_SCI_isBaseValid)
-                  000093c7    0000001a                        : sysctl.obj (.text:_CPUTimer_startTimer)
-                  000093e1    0000001a                        : sci.obj (.text:_SCI_isSpaceAvailableNonFIFO)
-                  000093fb    0000001a                        : sysctl.obj (.text:_SysCtl_getLowSpeedClock)
-                  00009415    00000018                        : sci.obj (.text:_SCI_disableModule)
-                  0000942d    00000018                        : sci.obj (.text:_SCI_performSoftwareReset)
-                  00009445    00000017                        : cputimer.obj (.text:_CPUTimer_isBaseValid)
-                  0000945c    00000017                        : sysctl.obj (.text:_CPUTimer_isBaseValid)
-                  00009473    00000014                        : sysctl.obj (.text:_CPUTimer_stopTimer)
-                  00009487    00000014                        : sci.obj (.text:_SCI_getTxFIFOStatus)
-                  0000949b    00000013                        : cputimer.obj (.text:_CPUTimer_setEmulationMode)
-                  000094ae    00000013                        : sci.obj (.text:_SCI_enableModule)
-                  000094c1    00000012                        : sysctl.obj (.text:_CPUTimer_clearOverflowFlag)
-                  000094d3    00000012                        : sysctl.obj (.text:_CPUTimer_disableInterrupt)
-                  000094e5    00000012     rts2800_fpu32.lib : args_main.c.obj (.text)
-                  000094f7    00000011     driverlib_coff.lib : sysctl.obj (.text:_CPUTimer_setPeriod)
-                  00009508    0000000f                        : sysctl.obj (.text:_SysCtl_pollCpuTimer)
-                  00009517    0000000e                        : gpio.obj (.text:_GPIO_isPinValid)
-                  00009525    0000000e                        : interrupt.obj (.text:_Interrupt_defaultHandler)
-                  00009533    0000000d                        : interrupt.obj (.text:_Interrupt_disableGlobal)
-                  00009540    0000000d                        : interrupt.obj (.text:_Interrupt_enableGlobal)
-                  0000954d    0000000b                        : sysctl.obj (.text:_SysCtl_isMCDClockFailureDetected)
-                  00009558    00000009                        : sysctl.obj (.text:_SysCtl_serviceWatchdog)
-                  00009561    00000009     rts2800_fpu32.lib : _lock.c.obj (.text)
-                  0000956a    00000008     F2837xD_CodeStartBranch.obj (.text)
-                  00009572    00000007     driverlib_coff.lib : sysctl.obj (.text:_SysCtl_resetMCD)
+                  00009135    00000046     inverse_park.obj (.text)
+                  0000917b    00000045     driverlib_coff.lib : sci.obj (.text:_SCI_clearInterruptStatus)
+                  000091c0    0000003e                        : sci.obj (.text:_SCI_setConfig)
+                  000091fe    0000003d                        : interrupt.obj (.text:_Interrupt_initModule)
+                  0000923b    00000037                        : gpio.obj (.text:_GPIO_setControllerCore)
+                  00009272    00000037                        : gpio.obj (.text:_GPIO_setPinConfig)
+                  000092a9    00000037                        : gpio.obj (.text:_GPIO_setQualificationMode)
+                  000092e0    00000037                        : interrupt.obj (.text:_Interrupt_enable)
+                  00009317    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
+                  00009340    00000024                       : cpy_tbl.c.obj (.text)
+                  00009364    00000021     driverlib_coff.lib : sysctl.obj (.text:_CPUTimer_selectClockSource)
+                  00009385    00000020                        : sci.obj (.text:_SCI_isFIFOEnabled)
+                  000093a5    0000001f                        : sysctl.obj (.text:_CPUTimer_getTimerOverflowStatus)
+                  000093c4    0000001e                        : interrupt.obj (.text:_Interrupt_initVectorTable)
+                  000093e2    0000001d     rts2800_fpu32.lib : memcpy.c.obj (.text)
+                  000093ff    0000001b     driverlib_coff.lib : sci.obj (.text:_SCI_isBaseValid)
+                  0000941a    0000001a                        : sysctl.obj (.text:_CPUTimer_startTimer)
+                  00009434    0000001a                        : sci.obj (.text:_SCI_isSpaceAvailableNonFIFO)
+                  0000944e    0000001a                        : sysctl.obj (.text:_SysCtl_getLowSpeedClock)
+                  00009468    0000001a     clark.obj (.text)
+                  00009482    00000018     driverlib_coff.lib : sci.obj (.text:_SCI_disableModule)
+                  0000949a    00000018                        : sci.obj (.text:_SCI_performSoftwareReset)
+                  000094b2    00000017                        : cputimer.obj (.text:_CPUTimer_isBaseValid)
+                  000094c9    00000017                        : sysctl.obj (.text:_CPUTimer_isBaseValid)
+                  000094e0    00000014                        : sysctl.obj (.text:_CPUTimer_stopTimer)
+                  000094f4    00000014                        : sci.obj (.text:_SCI_getTxFIFOStatus)
+                  00009508    00000013                        : cputimer.obj (.text:_CPUTimer_setEmulationMode)
+                  0000951b    00000013                        : sci.obj (.text:_SCI_enableModule)
+                  0000952e    00000012                        : sysctl.obj (.text:_CPUTimer_disableInterrupt)
+                  00009540    00000012     rts2800_fpu32.lib : args_main.c.obj (.text)
+                  00009552    00000011     driverlib_coff.lib : sysctl.obj (.text:_CPUTimer_setPeriod)
+                  00009563    0000000f                        : sysctl.obj (.text:_SysCtl_pollCpuTimer)
+                  00009572    0000000e                        : gpio.obj (.text:_GPIO_isPinValid)
+                  00009580    0000000e                        : interrupt.obj (.text:_Interrupt_defaultHandler)
+                  0000958e    0000000d                        : interrupt.obj (.text:_Interrupt_disableGlobal)
+                  0000959b    0000000d                        : interrupt.obj (.text:_Interrupt_enableGlobal)
+                  000095a8    0000000b                        : sysctl.obj (.text:_SysCtl_isMCDClockFailureDetected)
+                  000095b3    00000009                        : sysctl.obj (.text:_SysCtl_serviceWatchdog)
+                  000095bc    00000009     rts2800_fpu32.lib : _lock.c.obj (.text)
+                  000095c5    00000008     F2837xD_CodeStartBranch.obj (.text)
+                  000095cd    00000007     driverlib_coff.lib : sysctl.obj (.text:_SysCtl_resetMCD)
+                  000095d4    00000002     rts2800_fpu32.lib : pre_init.c.obj (.text)
 
 .text.4    0    0000b000    00000800     
                   0000b000    0000068c     pwm.obj (.text)
@@ -211,16 +212,17 @@ MODULE SUMMARY
        ------                        ----   ----------------   ------------------
     .\
        pwm.obj                       1676   72                 22                
-       empty_driverlib_main.obj      786    220                156               
+       empty_driverlib_main.obj      814    220                156               
        sci_init.obj                  410    67                 0                 
        encoder.obj                   321    68                 0                 
        cpu_timer.obj                 213    72                 0                 
        duty_update.obj               163    68                 0                 
        pid.obj                       207    0                  0                 
        park.obj                      74     0                  0                 
-       clark.obj                     28     5                  2                 
+       inverse_park.obj              70     0                  0                 
+       clark.obj                     26     5                  2                 
     +--+-----------------------------+------+------------------+--------------------+
-       Total:                        3878   572                180               
+       Total:                        3974   572                180               
                                                                                  
     .\device\
        device.obj                    1020   34                 6                 
@@ -254,7 +256,7 @@ MODULE SUMMARY
                                                                                  
        Stack:                        0      0                  256               
     +--+-----------------------------+------+------------------+--------------------+
-       Grand Total:                  7548   1396               452               
+       Grand Total:                  7644   1396               452               
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -309,6 +311,8 @@ address     data page           name
 0000ad68     2b5 (0000ad40)     _Ta
 0000ad6a     2b5 (0000ad40)     _Tb
 0000ad6c     2b5 (0000ad40)     _Tc
+0000ad6e     2b5 (0000ad40)     _ialpha_inverse
+0000ad70     2b5 (0000ad40)     _ibeta_inverse
 
 0000ad80     2b6 (0000ad80)     _pid_current_q
 0000ad9c     2b6 (0000ad80)     _pid_speed
@@ -321,10 +325,10 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                                      
 ----  -------   ----                                      
 abs   ffffffff  .text                                     
-0     000087d2  C$$EXIT                                   
+0     00009317  C$$EXIT                                   
 0     00008dad  FS$$DIV                                   
 0     0000b19c  _Board_init                               
-0     0000949b  _CPUTimer_setEmulationMode                
+0     00009508  _CPUTimer_setEmulationMode                
 0     00008270  _Device_bootCPU2                          
 0     0000823f  _Device_configureTMXAnalogTrim            
 0     000080ed  _Device_enableAllPeripherals              
@@ -340,28 +344,28 @@ abs   ffffffff  .text
 0     000083fb  _Example_done                             
 0     000083f6  _Example_setResultFail                    
 0     000083f1  _Example_setResultPass                    
-0     000091f5  _GPIO_setControllerCore                   
+0     0000923b  _GPIO_setControllerCore                   
 0     0000b7cd  _GPIO_setDirectionMode                    
 0     00009000  _GPIO_setPadConfig                        
-0     0000922c  _GPIO_setPinConfig                        
-0     00009263  _GPIO_setQualificationMode                
-0     0000929a  _Interrupt_enable                         
-0     000091b8  _Interrupt_initModule                     
-0     00009355  _Interrupt_initVectorTable                
+0     00009272  _GPIO_setPinConfig                        
+0     000092a9  _GPIO_setQualificationMode                
+0     000092e0  _Interrupt_enable                         
+0     000091fe  _Interrupt_initModule                     
+0     000093c4  _Interrupt_initVectorTable                
 0     00008bb1  _PIDController_Init                       
 0     00008bcf  _PIDController_Update                     
-0     0000872d  _PinMux_init                              
+0     00008749  _PinMux_init                              
 0     0000b35a  _PinMux_init_PWM                          
 0     0000b79a  _Pin_EQEP                                 
-0     00009135  _SCI_clearInterruptStatus                 
-0     0000874c  _SCI_init                                 
-0     0000917a  _SCI_setConfig                            
+0     0000917b  _SCI_clearInterruptStatus                 
+0     00008768  _SCI_init                                 
+0     000091c0  _SCI_setConfig                            
 0     00008fbc  _SCI_writeCharArray                       
 0     0000b56f  _SYNC_init                                
 0     00000186  _SysCtl_delay                             
 0     00009052  _SysCtl_getClock                          
 0     00008e35  _SysCtl_getDeviceParametric               
-0     000093fb  _SysCtl_getLowSpeedClock                  
+0     0000944e  _SysCtl_getLowSpeedClock                  
 0     000090ed  _SysCtl_selectOscSource                   
 0     00008d23  _SysCtl_selectXTAL                        
 0     00008800  _SysCtl_setClock                          
@@ -383,22 +387,22 @@ abs   ffffffff  ___c_args__
 abs   ffffffff  ___etext__                                
 abs   ffffffff  ___pinit__                                
 abs   ffffffff  ___text__                                 
-0     000094e5  __args_main                               
+0     00009540  __args_main                               
 1     0000ad3a  __lock                                    
-0     00009569  __nop                                     
-0     00009565  __register_lock                           
-0     00009561  __register_unlock                         
+0     000095c4  __nop                                     
+0     000095c0  __register_lock                           
+0     000095bc  __register_unlock                         
 1     00000400  __stack                                   
-0     000087ff  __system_post_cinit                       
-0     000087fd  __system_pre_init                         
+0     00008fff  __system_post_cinit                       
+0     000095d4  __system_pre_init                         
 1     0000ad3c  __unlock                                  
-0     000087d2  _abort                                    
+0     00009317  _abort                                    
 0     00008f66  _c_int00                                  
 0     000084c6  _calculateSpeed                           
-0     00009390  _clark_alpha                              
-0     00009397  _clark_beta                               
+0     00009468  _clark_alpha                              
+0     0000946f  _clark_beta                               
 0     00008b83  _configCPUTimer                           
-0     000092d1  _copy_in                                  
+0     00009340  _copy_in                                  
 0     00008f03  _cos                                      
 0     00008f03  _cosf                                     
 0     00008a06  _cpuTimer0ISR                             
@@ -408,11 +412,13 @@ abs   ffffffff  ___text__
 1     0000ad58  _duty_b                                   
 1     0000ad5a  _duty_c                                   
 0     00008cdd  _duty_change                              
-0     000087d4  _exit                                     
+0     00009319  _exit                                     
 1     0000ad50  _ia                                       
 1     0000ad48  _ialpha                                   
+1     0000ad6e  _ialpha_inverse                           
 1     0000ad52  _ib                                       
 1     0000ad4a  _ibeta                                    
+1     0000ad70  _ibeta_inverse                            
 1     0000ad4c  _id                                       
 1     0000ad64  _id_measured                              
 1     0000ad60  _idref                                    
@@ -420,13 +426,15 @@ abs   ffffffff  ___text__
 0     0000b59c  _initEPWM1                                
 0     0000b5ec  _initEPWM2                                
 0     0000b63c  _initEPWM3                                
-0     0000878c  _intToStrPositive                         
+0     000087a8  _intToStrPositive                         
+0     00009135  _inverse_park_alpha                       
+0     00009158  _inverse_park_beta                        
 1     0000ad4e  _iq                                       
 1     0000ad66  _iq_measured                              
 1     0000ad5c  _iqref                                    
 0     000084f0  _main                                     
-0     00009373  _memcpy                                   
-0     0000874f  _mySCI0_init                              
+0     000093e2  _memcpy                                   
+0     0000876b  _mySCI0_init                              
 1     0000ad3e  _onebysqrt3                               
 0     000090a3  _park_id                                  
 0     000090c8  _park_iq                                  
@@ -488,15 +496,10 @@ page  address   name
 0     000083fb  _Example_done                             
 0     000084c6  _calculateSpeed                           
 0     000084f0  _main                                     
-0     0000872d  _PinMux_init                              
-0     0000874c  _SCI_init                                 
-0     0000874f  _mySCI0_init                              
-0     0000878c  _intToStrPositive                         
-0     000087d2  C$$EXIT                                   
-0     000087d2  _abort                                    
-0     000087d4  _exit                                     
-0     000087fd  __system_pre_init                         
-0     000087ff  __system_post_cinit                       
+0     00008749  _PinMux_init                              
+0     00008768  _SCI_init                                 
+0     0000876b  _mySCI0_init                              
+0     000087a8  _intToStrPositive                         
 0     00008800  _SysCtl_setClock                          
 0     00008a06  _cpuTimer0ISR                             
 0     00008a59  _cpuTimer1ISR                             
@@ -514,29 +517,36 @@ page  address   name
 0     00008f03  _cosf                                     
 0     00008f66  _c_int00                                  
 0     00008fbc  _SCI_writeCharArray                       
+0     00008fff  __system_post_cinit                       
 0     00009000  _GPIO_setPadConfig                        
 0     00009052  _SysCtl_getClock                          
 0     000090a3  _park_id                                  
 0     000090c8  _park_iq                                  
 0     000090ed  _SysCtl_selectOscSource                   
-0     00009135  _SCI_clearInterruptStatus                 
-0     0000917a  _SCI_setConfig                            
-0     000091b8  _Interrupt_initModule                     
-0     000091f5  _GPIO_setControllerCore                   
-0     0000922c  _GPIO_setPinConfig                        
-0     00009263  _GPIO_setQualificationMode                
-0     0000929a  _Interrupt_enable                         
-0     000092d1  _copy_in                                  
-0     00009355  _Interrupt_initVectorTable                
-0     00009373  _memcpy                                   
-0     00009390  _clark_alpha                              
-0     00009397  _clark_beta                               
-0     000093fb  _SysCtl_getLowSpeedClock                  
-0     0000949b  _CPUTimer_setEmulationMode                
-0     000094e5  __args_main                               
-0     00009561  __register_unlock                         
-0     00009565  __register_lock                           
-0     00009569  __nop                                     
+0     00009135  _inverse_park_alpha                       
+0     00009158  _inverse_park_beta                        
+0     0000917b  _SCI_clearInterruptStatus                 
+0     000091c0  _SCI_setConfig                            
+0     000091fe  _Interrupt_initModule                     
+0     0000923b  _GPIO_setControllerCore                   
+0     00009272  _GPIO_setPinConfig                        
+0     000092a9  _GPIO_setQualificationMode                
+0     000092e0  _Interrupt_enable                         
+0     00009317  C$$EXIT                                   
+0     00009317  _abort                                    
+0     00009319  _exit                                     
+0     00009340  _copy_in                                  
+0     000093c4  _Interrupt_initVectorTable                
+0     000093e2  _memcpy                                   
+0     0000944e  _SysCtl_getLowSpeedClock                  
+0     00009468  _clark_alpha                              
+0     0000946f  _clark_beta                               
+0     00009508  _CPUTimer_setEmulationMode                
+0     00009540  __args_main                               
+0     000095bc  __register_unlock                         
+0     000095c0  __register_lock                           
+0     000095c4  __nop                                     
+0     000095d4  __system_pre_init                         
 0     0000b19c  _Board_init                               
 0     0000b1a5  _variable_def                             
 0     0000b35a  _PinMux_init_PWM                          
@@ -598,6 +608,8 @@ page  address   name
 1     0000ad68  _Ta                                       
 1     0000ad6a  _Tb                                       
 1     0000ad6c  _Tc                                       
+1     0000ad6e  _ialpha_inverse                           
+1     0000ad70  _ibeta_inverse                            
 1     0000ad80  _pid_current_q                            
 1     0000ad9c  _pid_speed                                
 1     0000adc0  _pid_current_d                            
@@ -615,4 +627,4 @@ abs   ffffffff  binit
 abs   ffffffff  etext                                     
 abs   ffffffff  pinit                                     
 
-[144 symbols]
+[148 symbols]
