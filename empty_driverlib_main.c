@@ -18,11 +18,18 @@
 #include "math.h"
 #include "park.h"
 #include "pid.h"
+#include "inverse_park.h"
+#include "pwm.h"
+#include "duty_update.h"
 //
 // Main
 //
-
-
+#define  PWM_FREQUENCY           10.0
+#define SYSTEM_FREQUENCY 200
+#define  INV_PWM_TICKS              ((SYSTEM_FREQUENCY/2.0)/PWM_FREQUENCY)*1000
+#define  QEP_UNIT_TIMER_TICKS       ((SYSTEM_FREQUENCY/(2*PWM_FREQUENCY))*1000)
+#define  INV_PWM_TBPRD              INV_PWM_TICKS/2
+#define  INV_PWM_HALF_TBPRD         INV_PWM_TICKS/4
 #define Rs 7.88 //in ohms
 #define Ld 0.0344 //in mH
 #define J  0.000605 //in kg/m2
@@ -47,6 +54,12 @@ float32_t ia=1.00,ib=2.00;
 int tester=0;
 float32_t speed_motor;
 
+
+float32_t duty_a,duty_b,duty_c;
+
+
+
+
 // Function to calculate the speed.
 float calculateSpeed()
 {
@@ -67,9 +80,19 @@ float calculateSpeed()
 
 PIDController pid_current_q;
 PIDController pid_speed;
+PIDController pid_current_d;
+
 float32_t iqref=0.0;
 float32_t vq =0.0;
+float32_t idref=0.0;
+float32_t vd=0.0;
 
+
+float32_t id_measured=0.0;
+float32_t iq_measured=0.0;
+float32_t Ta,Tb,Tc;
+
+uint16_t seca,secb,secc;
 
 void main(void)
 {
@@ -86,6 +109,14 @@ void main(void)
         Interrupt_initModule();
         PinMux_init();
         mySCI0_init();
+        Board_init();
+
+        SysCtl_disablePeripheral(SYSCTL_PERIPH_CLK_TBCLKSYNC);
+        initEPWM1();
+        initEPWM2();
+        initEPWM3();
+        SysCtl_enablePeripheral(SYSCTL_PERIPH_CLK_TBCLKSYNC);
+
         //
         // Initialize the PIE vector table with pointers to the shell Interrupt
         // Service Routines (ISR).
@@ -121,6 +152,18 @@ void main(void)
 
 
 
+        pid_current_d.Kd = 0.0;
+        pid_current_d.Ki = Kic;
+        pid_current_d.Kp = Kpc;
+        pid_current_q.limMax = MaxVq;
+        pid_current_q.limMin = MinVq;
+        pid_current_q.limMaxInt = MaxVq/2.00;
+        pid_current_q.limMinInt = MinVq/2.00;
+        PIDController_Init(&pid_current_d);
+
+
+
+
         pid_speed.Kd = 0.0;
         pid_speed.Ki = Kis;
         pid_speed.Kp = Kps;
@@ -131,6 +174,24 @@ void main(void)
         PIDController_Init(&pid_speed);
 
 
+        Ta = ta_pwm(0.5f, 0.5f);
+        Tb = tb_pwm(0.5f, 0.5f);
+        Tc = tc_pwm(0.5f, 0.5f);
+//        seca = ta_pwm2(0.5, 0.5);
+//   /     secb = tb_pwm2(0.5, 0.5);
+//        secc = tc_pwm2(0.5, 0.5);
+//        motor->PwmARegs->CMPA.bit.CMPA = (INV_PWM_HALF_TBPRD*motor->svgen.Ta)+INV_PWM_HALF_TBPRD;
+        duty_a = Ta*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
+        duty_b = Tb*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
+        duty_c = Tc*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
+
+//        EPWM_setCounterCompareValue(myEPWM1_BASE, EPWM_COUNTER_COMPARE_A, (int16_t)duty_a);
+//        EPWM_setCounterCompareValue(myEPWM1_BASE, EPWM_COUNTER_COMPARE_B, (int16_t)duty_a);
+//        EPWM_setCounterCompareValue(myEPWM2_BASE, EPWM_COUNTER_COMPARE_A, (int16_t)duty_b);
+//        EPWM_setCounterCompareValue(myEPWM2_BASE, EPWM_COUNTER_COMPARE_B, (int16_t)duty_b);
+//        EPWM_setCounterCompareValue(myEPWM3_BASE, EPWM_COUNTER_COMPARE_A, (int16_t)duty_c);
+//        EPWM_setCounterCompareValue(myEPWM3_BASE, EPWM_COUNTER_COMPARE_B, (int16_t)duty_c);
+        duty_change(duty_a, duty_b, duty_c);
 
 
         while (1)
@@ -155,8 +216,9 @@ __interrupt void
 
             PIDController_Update(&pid_speed, 500, speed_motor);
             iqref = pid_speed.output;
-            PIDController_Update(&pid_current_q, iqref, 12.00);
+            PIDController_Update(&pid_current_q, iqref, iq_measured);
             vq = pid_current_q.output;
+            PIDController_Update(&pid_current_d, 0.0, id_measured);
      //
      // Acknowledge this interrupt to receive more interrupts from group 1
      //

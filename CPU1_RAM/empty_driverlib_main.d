@@ -103,6 +103,11 @@ empty_driverlib_main.obj: C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.L
 empty_driverlib_main.obj: ../park.h
 empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
 empty_driverlib_main.obj: ../pid.h
+empty_driverlib_main.obj: ../inverse_park.h
+empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
+empty_driverlib_main.obj: ../pwm.h
+empty_driverlib_main.obj: C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h
+empty_driverlib_main.obj: ../duty_update.h
 
 ../empty_driverlib_main.c:
 
@@ -309,4 +314,14 @@ C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-c2000_22.6.0.LTS/include/machine/_limits
 C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
 
 ../pid.h:
+
+../inverse_park.h:
+
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
+
+../pwm.h:
+
+C:/Users/Sanchit\ Awasthi/workspace_2/final_project/device/device.h:
+
+../duty_update.h:
 

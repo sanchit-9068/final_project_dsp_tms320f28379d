@@ -15,8 +15,10 @@ C_SRCS += \
 ../clark.c \
 ../cpu_timer.c \
 ../current_sensing.c \
+../duty_update.c \
 ../empty_driverlib_main.c \
 ../encoder.c \
+../inverse_park.c \
 ../park.c \
 ../pid.c \
 ../pwm.c \
@@ -26,8 +28,10 @@ C_DEPS += \
 ./clark.d \
 ./cpu_timer.d \
 ./current_sensing.d \
+./duty_update.d \
 ./empty_driverlib_main.d \
 ./encoder.d \
+./inverse_park.d \
 ./park.d \
 ./pid.d \
 ./pwm.d \
@@ -37,8 +41,10 @@ OBJS += \
 ./clark.obj \
 ./cpu_timer.obj \
 ./current_sensing.obj \
+./duty_update.obj \
 ./empty_driverlib_main.obj \
 ./encoder.obj \
+./inverse_park.obj \
 ./park.obj \
 ./pid.obj \
 ./pwm.obj \
@@ -48,8 +54,10 @@ OBJS__QUOTED += \
 "clark.obj" \
 "cpu_timer.obj" \
 "current_sensing.obj" \
+"duty_update.obj" \
 "empty_driverlib_main.obj" \
 "encoder.obj" \
+"inverse_park.obj" \
 "park.obj" \
 "pid.obj" \
 "pwm.obj" \
@@ -59,8 +67,10 @@ C_DEPS__QUOTED += \
 "clark.d" \
 "cpu_timer.d" \
 "current_sensing.d" \
+"duty_update.d" \
 "empty_driverlib_main.d" \
 "encoder.d" \
+"inverse_park.d" \
 "park.d" \
 "pid.d" \
 "pwm.d" \
@@ -70,8 +80,10 @@ C_SRCS__QUOTED += \
 "../clark.c" \
 "../cpu_timer.c" \
 "../current_sensing.c" \
+"../duty_update.c" \
 "../empty_driverlib_main.c" \
 "../encoder.c" \
+"../inverse_park.c" \
 "../park.c" \
 "../pid.c" \
 "../pwm.c" \
