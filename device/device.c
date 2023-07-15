@@ -687,7 +687,7 @@ void __error__(const char *filename, uint32_t line)
     // An ASSERT condition was evaluated as false. You can use the filename and
     // line parameters to determine what went wrong.
     //
-     ESTOP0;
+    ESTOP0;
 }
 
 void Example_setResultPass(void)

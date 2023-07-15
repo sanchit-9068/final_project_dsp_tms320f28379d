@@ -50,7 +50,7 @@ uint16_t cpuTimer0IntCount;
 int32_t prev_pos=0;
 
 float32_t ialpha,ibeta,id,iq;
-float32_t ia=2.00,ib=4.00;
+float32_t ia=2.00,ib=3.00;
 int tester=0;
 float32_t speed_motor;
 
@@ -128,7 +128,7 @@ void main(void)
         Interrupt_register(INT_TIMER1, &cpuTimer1ISR);
         initCPUTimers();
         configCPUTimer(CPUTIMER0_BASE, DEVICE_SYSCLK_FREQ, 1000);// interrupt every 1 millisecond
-        configCPUTimer(CPUTIMER1_BASE, DEVICE_SYSCLK_FREQ, 20000);// interrupt every 20 millisecond
+        configCPUTimer(CPUTIMER1_BASE, DEVICE_SYSCLK_FREQ, 1000);// interrupt every 1 millisecond
         CPUTimer_enableInterrupt(CPUTIMER0_BASE);
         CPUTimer_enableInterrupt(CPUTIMER1_BASE);
         Interrupt_enable(INT_TIMER0);
@@ -155,10 +155,10 @@ void main(void)
         pid_current_d.Kd = 0.0;
         pid_current_d.Ki = Kic;
         pid_current_d.Kp = Kpc;
-        pid_current_q.limMax = MaxVq;
-        pid_current_q.limMin = MinVq;
-        pid_current_q.limMaxInt = MaxVq/2.00;
-        pid_current_q.limMinInt = MinVq/2.00;
+        pid_current_d.limMax = MaxVq;
+        pid_current_d.limMin = MinVq;
+        pid_current_d.limMaxInt = MaxVq/2.00;
+        pid_current_d.limMinInt = MinVq/2.00;
         PIDController_Init(&pid_current_d);
 
 
@@ -173,7 +173,7 @@ void main(void)
         pid_speed.limMinInt = MinCurrent/2.00;
         PIDController_Init(&pid_speed);
 
-        variable_def(0.5f, 0.5f);
+        variable_def(0.25f, 0.91f);
         Ta = ta_pwm2();
         Tb = tb_pwm2();
         Tc = tc_pwm2();
@@ -215,6 +215,7 @@ __interrupt void
             PIDController_Update(&pid_current_q, iqref, iq_measured);
             vq = pid_current_q.output;
             PIDController_Update(&pid_current_d, 0.0, id_measured);
+            vd = pid_current_d.output;
      //
      // Acknowledge this interrupt to receive more interrupts from group 1
      //
@@ -228,7 +229,7 @@ __interrupt void
  {
 
     cpuTimer0IntCount++;
-        float speedRPM = calculateSpeed();
+        float speedRPM = calculateSpeed()/4.00f;
         speed_motor = speedRPM;
                uint32_t j=(int32_t)speedRPM;
                uint16_t m=(int16_t)j;
@@ -238,13 +239,16 @@ __interrupt void
                intToStrPositive(m, l);
                SCI_writeCharArray(mySCI0_BASE, (uint16_t *)l, sizeof(l));
                SCI_writeCharArray(mySCI0_BASE, (uint16_t *)("\r\n"), sizeof("\r\n"));
-    //            uint32_t qq=EQEP_getPosition(EQEP1_BASE);
-    //            uint16_t qqq=(uint16_t)qq;
-    //            char tt[16]={};
-    //            SCI_writeCharArray(mySCI0_BASE, (uint16_t *)("Position="), sizeof("Position="));
-    //            intToStrPositive(qqq, tt);
-    //            SCI_writeCharArray(mySCI0_BASE, (uint16_t *)tt, sizeof(tt));
-    //            SCI_writeCharArray(mySCI0_BASE, (uint16_t *)("\r\n"), sizeof("\r\n"));
+               int32_t pos=EQEP_getPosition(EQEP1_BASE);
+             pos%=4096;
+             float32_t pos_float = (pos*360.00f)/4096.00f;
+             int32_t pos2=(int32_t)pos_float;
+             int16_t angle=(int16_t)pos2;
+             char pos_char[16]={};
+             SCI_writeCharArray(mySCI0_BASE, (uint16_t *)("Angle="), sizeof("Angle="));
+             intToStrPositive(angle, pos_char);
+             SCI_writeCharArray(mySCI0_BASE, (uint16_t *)pos_char, sizeof(pos_char));
+             SCI_writeCharArray(mySCI0_BASE, (uint16_t *)("\r\n"), sizeof("\r\n"));
                if(EQEP_getDirection(EQEP1_BASE)>0)
                {
                    SCI_writeCharArray(mySCI0_BASE, (uint16_t *)("Positive"), sizeof("Positive"));
