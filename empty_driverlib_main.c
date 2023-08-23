@@ -43,6 +43,18 @@
 #define MinVq -300//in rpm
 
 
+float32_t pos_float=0.0f;
+
+#define     EX_ADC_RESOLUTION       12
+
+void ConfigADC(uint32_t ADC_BASE);
+void initADC_SOC(void);
+
+uint16_t Adc_Result_1,Adc_Result_2,Adc_Result_3;
+float ADCINA0_1A,ADCINA4_1B,ADCINA2_1C;
+
+
+
 __interrupt void cpuTimer0ISR(void);
 __interrupt void cpuTimer1ISR(void);
 uint16_t cpuTimer0IntCount;
@@ -82,16 +94,16 @@ PIDController pid_current_q;
 PIDController pid_speed;
 PIDController pid_current_d;
 
-float32_t iqref=0.0;
+float32_t iqref=10.0;   //Give the iqref current value here
 float32_t vq =0.0;
-float32_t idref=0.0;
+float32_t idref=5.0;    //Give the idref current value here
 float32_t vd=0.0;
 
 
 float32_t id_measured=0.0;
 float32_t iq_measured=0.0;
 float32_t Ta,Tb,Tc;
-float32_t ialpha_inverse,ibeta_inverse;
+float32_t valpha_inverse,vbeta_inverse;
 uint16_t seca,secb,secc;
 
 void main(void)
@@ -136,6 +148,11 @@ void main(void)
         CPUTimer_startTimer(CPUTIMER0_BASE);
         CPUTimer_startTimer(CPUTIMER1_BASE);
 
+
+        ConfigADC(ADCA_BASE);
+        initADC_SOC();
+
+
         EINT;
         ERTM;
 
@@ -152,14 +169,14 @@ void main(void)
 
 
 
-        pid_current_d.Kd = 0.0;
-        pid_current_d.Ki = Kic;
-        pid_current_d.Kp = Kpc;
-        pid_current_d.limMax = MaxVq;
-        pid_current_d.limMin = MinVq;
-        pid_current_d.limMaxInt = MaxVq/2.00;
-        pid_current_d.limMinInt = MinVq/2.00;
-        PIDController_Init(&pid_current_d);
+//        pid_current_d.Kd = 0.0;
+//        pid_current_d.Ki = Kic;
+//        pid_current_d.Kp = Kpc;
+//        pid_current_d.limMax = MaxVq;
+//        pid_current_d.limMin = MinVq;
+//        pid_current_d.limMaxInt = MaxVq/2.00;
+//        pid_current_d.limMinInt = MinVq/2.00;
+//        PIDController_Init(&pid_current_d);
 
 
 
@@ -173,29 +190,62 @@ void main(void)
         pid_speed.limMinInt = MinCurrent/2.00;
         PIDController_Init(&pid_speed);
 
-        variable_def(0.25f, 0.91f);
-        Ta = ta_pwm2();
-        Tb = tb_pwm2();
-        Tc = tc_pwm2();
 
-//        duty_a = Ta*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
-//        duty_b = Tb*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
-//        duty_c = Tc*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
-
-        duty_a = Ta * 5000;
-        duty_b = Tb * 5000;
-        duty_c = Tc * 5000;
-        duty_change(duty_a, duty_b, duty_c);
 
 
         while (1)
         {
+
+            ADC_forceSOC(ADCA_BASE, ADC_SOC_NUMBER0);
+              ADC_forceSOC(ADCA_BASE, ADC_SOC_NUMBER2);
+              ADC_forceSOC(ADCA_BASE, ADC_SOC_NUMBER4);
+
+              while(ADC_getInterruptStatus(ADCA_BASE, ADC_INT_NUMBER1) == false)
+                  {
+
+                  }
+              ADC_clearInterruptStatus(ADCA_BASE, ADC_INT_NUMBER1);
+
+              ////           // Store results
+              Adc_Result_1 = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER0);
+              Adc_Result_2 = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER4);
+              Adc_Result_3 = ADC_readResult(ADCARESULT_BASE, ADC_SOC_NUMBER2);
+
+              // convert into voltage
+
+   //           ADCINA0_1A = Adc_Result_1*(3.3/4096);
+   //           ADCINA4_1B = Adc_Result_2*(3.3/4096);
+   //           ADCINA2_1C = Adc_Result_3*(3.3/4096);
+
+              // convert these voltage levels into AMP
+
+              ADCINA0_1A = (Adc_Result_1*(3.3/4096))*100;
+             ADCINA4_1B = (Adc_Result_2*(3.3/4096))*100;
+             ADCINA2_1C = (Adc_Result_3*(3.3/4096))*100;
+             ia = ADCINA0_1A;
+             ib = ADCINA4_1B;
+
             ialpha=clark_alpha(ia, ib);
             ibeta=clark_beta(ia, ib);
-            id= park_id(ialpha, ibeta, M_PI/3.00);
-            iq= park_iq(ialpha, ibeta, M_PI/3.00);
-            ialpha_inverse = inverse_park_alpha(id, iq, M_PI/3.00);
-            ibeta_inverse = inverse_park_beta(id, iq, M_PI/3.00);
+            id_measured= park_id(ialpha, ibeta, pos_float);
+            iq_measured= park_iq(ialpha, ibeta, pos_float);
+            valpha_inverse = inverse_park_alpha(vd, vq, pos_float);
+            vbeta_inverse = inverse_park_beta(vd, vq, pos_float);
+
+
+            variable_def(valpha_inverse, vbeta_inverse);
+            Ta = ta_pwm2();
+            Tb = tb_pwm2();
+            Tc = tc_pwm2();
+
+            //        duty_a = Ta*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
+            //        duty_b = Tb*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
+            //        duty_c = Tc*INV_PWM_HALF_TBPRD + INV_PWM_HALF_TBPRD;
+
+            duty_a = Ta * 5000;
+            duty_b = Tb * 5000;
+            duty_c = Tc * 5000;
+            duty_change(duty_a, duty_b, duty_c);
 
         }
 
@@ -210,11 +260,11 @@ __interrupt void
  {
 
 
-            PIDController_Update(&pid_speed, 500, speed_motor);
-            iqref = pid_speed.output;
+//            PIDController_Update(&pid_speed, 500, speed_motor);
+//            iqref = pid_speed.output;
             PIDController_Update(&pid_current_q, iqref, iq_measured);
             vq = pid_current_q.output;
-            PIDController_Update(&pid_current_d, 0.0, id_measured);
+            PIDController_Update(&pid_current_d, idref, id_measured);
             vd = pid_current_d.output;
      //
      // Acknowledge this interrupt to receive more interrupts from group 1
@@ -241,7 +291,7 @@ __interrupt void
                SCI_writeCharArray(mySCI0_BASE, (uint16_t *)("\r\n"), sizeof("\r\n"));
                int32_t pos=EQEP_getPosition(EQEP1_BASE);
              pos%=4096;
-             float32_t pos_float = (pos*360.00f)/4096.00f;
+             pos_float = (pos*360.00f)/4096.00f;
              int32_t pos2=(int32_t)pos_float;
              int16_t angle=(int16_t)pos2;
              char pos_char[16]={};
@@ -261,6 +311,58 @@ __interrupt void
                }
 
  }
+
+void ConfigADC(uint32_t ADC_BASE)
+{
+    EALLOW;
+
+    ADC_setPrescaler(ADCA_BASE, ADC_CLK_DIV_4_0);
+
+#if(EX_ADC_RESOLUTION == 12)
+    {
+        ADC_setMode(ADC_BASE, ADC_RESOLUTION_12BIT, ADC_MODE_SINGLE_ENDED);
+    }
+#elif(EX_ADC_RESOLUTION == 16)
+    {
+      ADC_setMode(ADCA_BASE, ADC_RESOLUTION_16BIT, ADC_MODE_DIFFERENTIAL);
+    }
+#endif
+    ADC_setInterruptPulseMode(ADC_BASE, ADC_PULSE_END_OF_CONV);
+    ADC_enableConverter(ADC_BASE);
+    DEVICE_DELAY_US(1000);
+    EDIS;
+}
+
+
+
+
+void initADC_SOC(void)
+{
+#if(EX_ADC_RESOLUTION == 12)
+    {
+        ADC_setupSOC(ADCA_BASE, ADC_SOC_NUMBER0, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 15);
+        ADC_setupSOC(ADCA_BASE, ADC_SOC_NUMBER2, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN2, 15);
+        ADC_setupSOC(ADCA_BASE, ADC_SOC_NUMBER4, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN4, 15);
+
+
+
+    }
+#elif(EX_ADC_RESOLUTION == 16)
+    {
+        ADC_setupSOC(ADCA_BASE, ADC_SOC_NUMBER0, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0,64);
+    }
+#endif
+    ADC_setInterruptSource(ADCA_BASE, ADC_INT_NUMBER1, ADC_SOC_NUMBER0);
+    ADC_setInterruptSource(ADCA_BASE, ADC_INT_NUMBER1, ADC_SOC_NUMBER2);
+    ADC_setInterruptSource(ADCA_BASE, ADC_INT_NUMBER1, ADC_SOC_NUMBER4);
+
+
+    ADC_enableInterrupt(ADCA_BASE, ADC_INT_NUMBER1);
+
+    ADC_clearInterruptStatus(ADCA_BASE, ADC_INT_NUMBER1);
+
+
+}
 
 
 //
